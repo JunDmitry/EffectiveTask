@@ -1,0 +1,74 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <TargetFramework>net8.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.Extensions.Logging" Version="8.0.1" />
+    <PackageReference Include="Serilog" Version="4.1.0" />
+    <PackageReference Include="Serilog.Extensions.Logging" Version="8.0.0" />
+    <PackageReference Include="Serilog.Formatting.Compact" Version="3.0.0" />
+    <PackageReference Include="Serilog.Sinks.File" Version="6.0.0" />
+    <PackageReference Include="System.Configuration.ConfigurationManager" Version="8.0.1" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Update="Filtering\OrderRules.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>OrderRules.g.cs</LastGenOutput>
+    </None>
+    <None Update="Filtering\Rules.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>Rules.g.cs</LastGenOutput>
+    </None>
+    <None Update="Filtering\RulesFactory.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>RulesFactory.g.cs</LastGenOutput>
+    </None>
+    <None Update="Logging\Handlers.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>Handlers.g.cs</LastGenOutput>
+    </None>
+    <None Update="Logging\LoggerExtensions.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>LoggerExtensions.g.cs</LastGenOutput>
+    </None>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Service Include="{508349b6-6b84-4df5-91f0-309beebad82d}" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Update="Filtering\OrderRules.g.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>OrderRules.tt</DependentUpon>
+    </Compile>
+    <Compile Update="Filtering\Rules.g.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Rules.tt</DependentUpon>
+    </Compile>
+    <Compile Update="Filtering\RulesFactory.g.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>RulesFactory.tt</DependentUpon>
+    </Compile>
+    <Compile Update="Logging\Handlers.g.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Handlers.tt</DependentUpon>
+    </Compile>
+    <Compile Update="Logging\LoggerExtensions.g.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>LoggerExtensions.tt</DependentUpon>
+    </Compile>
+  </ItemGroup>
+
+</Project>

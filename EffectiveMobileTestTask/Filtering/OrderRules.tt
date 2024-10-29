@@ -1,0 +1,30 @@
+﻿<#@ template debug="false" hostspecific="false" language="C#" #>
+<#@ assembly name="System.Core" #>
+<#@ import namespace="System.Linq" #>
+<#@ import namespace="System.Text" #>
+<#@ import namespace="System.Collections.Generic" #>
+<#@ output extension=".g.cs" #>
+<#
+string[] operationNames = { "And", "Or", "Xor" };
+string[] propNames = { "Id", "Weight", "DistrictName", "DeliveryTime" };
+string[] propTypes = { "Guid", "double", "string", "string" };
+#>
+#nullable enable
+
+namespace EffectiveMobileTestTask.Filtering;
+
+public static partial class OrderRules 
+{
+	<# for (int i = 0; i < propNames.Length; i++) { #>
+
+		<# foreach (string opName in operationNames) { #>
+
+			public static IRule<Order> <#= opName #>With<#= propNames[i] #>(this IRule<Order> rule, <#= propTypes[i] #> value)
+			{
+				return rule.<#= opName #>Rule(v => v.<#= propNames[i] #> == value);
+			}
+
+		<# } #>
+
+	<# } #>
+}

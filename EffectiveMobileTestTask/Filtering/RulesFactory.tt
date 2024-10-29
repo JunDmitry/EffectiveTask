@@ -1,0 +1,41 @@
+﻿<#@ template debug="false" hostspecific="false" language="C#" #>
+<#@ assembly name="System.Core" #>
+<#@ import namespace="System.Linq" #>
+<#@ import namespace="System.Text" #>
+<#@ import namespace="System.Collections.Generic" #>
+<#@ output extension=".g.cs" #>
+<#
+string[] rules = { "And", "Or", "Xor" };
+#>
+#nullable enable
+
+using EffectiveMobileTestTask.Logging;
+
+namespace EffectiveMobileTestTask.Filtering;
+
+public static partial class RulesFactory
+{
+	<# foreach (var rule in rules) { #>
+		
+		public static IRule<T> <#= rule #>Rule<T>(this Predicate<T> left, Predicate<T> right)
+		{
+			return new <#= rule #>Rule<T>(UnaryRule(left), UnaryRule(right));
+		}
+
+		public static IRule<T> <#= rule #>Rule<T>(this Predicate<T> left, IRule<T> right)
+		{
+			return new <#= rule #>Rule<T>(UnaryRule(left), right);
+		}
+
+		public static IRule<T> <#= rule #>Rule<T>(this IRule<T> left, Predicate<T> right)
+		{
+			return new <#= rule #>Rule<T>(left, UnaryRule(right));
+		}
+
+		public static IRule<T> <#= rule #>Rule<T>(this IRule<T> left, IRule<T> right)
+		{
+			return new <#= rule #>Rule<T>(left, right);
+		}
+		
+	<# } #>
+}
